@@ -1,0 +1,187 @@
+% neutral.sty — neutral Beamer house style (Barney Hartman-Glaser)
+%
+% Dark-navy + slate palette for research seminars, conference talks, and
+% external talks. The default theme for /beautiful_deck.
+%
+% To use: in your main.tex preamble, add
+%   \usepackage{<path-to>/neutral}
+% e.g. \usepackage{/Users/<you>/.claude/references/latex_toolkit/themes/neutral/neutral}
+% or copy this file into a project-local Theme/ folder.
+
+% Note: ProvidesPackage name matches the relative-path form used by
+% \usepackage{../Theme/neutral} in project-local preambles, to silence LaTeX's
+% "package provides X but you requested Y" warning. If you move this file to a
+% TeX search path (~/Library/texmf/tex/latex/...), change to {neutral}.
+\ProvidesPackage{../Theme/neutral}[2026/04/22 Barney Hartman-Glaser neutral Beamer style]
+
+\RequirePackage{tikz}
+\RequirePackage{xcolor}
+
+%==============================================================================
+% PALETTE
+%==============================================================================
+% Core: deep navy as the emotional anchor.
+\definecolor{DeepNavy}{HTML}{1E3A5F}
+
+% Secondary: slate, for contrast elements and subheads.
+\definecolor{Slate}{HTML}{475569}
+
+% Text colors.
+\definecolor{InkBlack}{HTML}{0F172A}
+\definecolor{WarmGray}{HTML}{64748B}
+
+% Backgrounds.
+\definecolor{Cream}{HTML}{FAFAF7}
+\definecolor{PaperWhite}{HTML}{FFFFFF}
+
+% Accents.
+\definecolor{Alert}{HTML}{B91C1C}
+\definecolor{Success}{HTML}{166534}
+
+% Chart tertiaries.
+\definecolor{ChartBlue}{HTML}{3B82F6}
+\definecolor{ChartAmber}{HTML}{B45309}
+
+%==============================================================================
+% FONTS
+%==============================================================================
+\usefonttheme{professionalfonts}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+%==============================================================================
+% BEAMER COLOR ASSIGNMENTS
+%==============================================================================
+\setbeamercolor{normal text}{fg=InkBlack, bg=Cream}
+\setbeamercolor{structure}{fg=DeepNavy}
+\setbeamercolor{frametitle}{fg=DeepNavy, bg=Cream}
+\setbeamercolor{title}{fg=DeepNavy}
+\setbeamercolor{subtitle}{fg=Slate}
+\setbeamercolor{author}{fg=InkBlack}
+\setbeamercolor{date}{fg=WarmGray}
+\setbeamercolor{institute}{fg=Slate}
+\setbeamercolor{itemize item}{fg=DeepNavy}
+\setbeamercolor{itemize subitem}{fg=Slate}
+\setbeamercolor{section in toc}{fg=DeepNavy}
+\setbeamercolor{alerted text}{fg=Alert}
+\setbeamercolor{block title}{fg=Cream, bg=DeepNavy}
+\setbeamercolor{block body}{fg=InkBlack, bg=Cream}
+
+%==============================================================================
+% TYPOGRAPHY
+%==============================================================================
+% Body text: 24pt minimum. Titles: \huge. Frame title: \Large\bfseries.
+\setbeamerfont{frametitle}{size=\Large, series=\bfseries}
+\setbeamerfont{title}{size=\huge, series=\bfseries}
+\setbeamerfont{subtitle}{size=\large, series=\normalfont\itshape}
+\setbeamerfont{normal text}{size=\normalsize}
+
+%==============================================================================
+% FRAME TITLE — left rule treatment
+%==============================================================================
+% A thin 2mm vertical bar in DeepNavy to the left of the title.
+% Headline reserves space at the top of every frame → top margin above title.
+% Matched to the 0.4cm left indent before the frametitle accent bar.
+\setbeamertemplate{headline}{\vspace*{0.4cm}}
+
+\setbeamertemplate{frametitle}{%
+  \nointerlineskip%
+  \begin{beamercolorbox}[wd=\paperwidth, sep=0pt, leftskip=0pt, rightskip=0pt]{}%
+    \hspace*{0.4cm}%
+    {\color{DeepNavy}\rule[-0.4ex]{2pt}{1.2em}}%
+    \hspace{0.35cm}%
+    {\usebeamerfont{frametitle}\usebeamercolor[fg]{frametitle}\insertframetitle}%
+    \vspace{0.35cm}%
+  \end{beamercolorbox}%
+}
+
+%==============================================================================
+% ITEMIZE BULLETS — TikZ-filled circles
+%==============================================================================
+\setbeamertemplate{itemize item}{\tikz\fill[DeepNavy] (0,0) circle (2pt);}
+\setbeamertemplate{itemize subitem}{\tikz\fill[Slate] (0,0) circle (1.5pt);}
+\setbeamertemplate{itemize subsubitem}{\tikz\fill[WarmGray] (0,0) circle (1pt);}
+
+%==============================================================================
+% NAVIGATION — off
+%==============================================================================
+\setbeamertemplate{navigation symbols}{}
+\beamertemplatenavigationsymbolsempty
+
+%==============================================================================
+% FOOTLINE — minimal: page number right-aligned
+%==============================================================================
+\setbeamertemplate{footline}{%
+  \vspace*{0.25cm}%
+  \hbox to \paperwidth{%
+    \hfill
+    {\color{WarmGray}\small\insertframenumber}%
+    \hspace{0.6cm}%
+  }%
+  \vspace{0.4cm}%
+}
+
+%==============================================================================
+% TITLE SLIDE
+%==============================================================================
+\setbeamertemplate{title page}{%
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[DeepNavy] (current page.south west) rectangle (current page.north east);
+    \node[anchor=north west] at ([xshift=1cm, yshift=-2.5cm]current page.north west) {%
+      \begin{minipage}{0.85\paperwidth}%
+        \raggedright
+        {\color{Cream}\fontsize{32pt}{38pt}\selectfont\bfseries\inserttitle\par}%
+        \vspace{0.4cm}%
+        {\color{Cream!80}\large\insertsubtitle\par}%
+        \vspace{1.2cm}%
+        {\color{Cream!80}\normalsize\insertauthor\par}%
+        \vspace{0.2cm}%
+        {\color{Cream!60}\small\insertinstitute\par}%
+        \vspace{0.2cm}%
+        {\color{Cream!60}\small\insertdate\par}%
+      \end{minipage}%
+    };
+  \end{tikzpicture}%
+}
+
+%==============================================================================
+% TRANSITION SLIDE — full-bleed section divider
+%==============================================================================
+% Usage: \transitionslide{Section Title}{Subtitle}
+\newcommand{\transitionslide}[2]{%
+  {%
+    \setbeamercolor{background canvas}{bg=DeepNavy}%
+    \begin{frame}[plain,noframenumbering]%
+      \begin{tikzpicture}[remember picture, overlay]
+        \node[anchor=center] at (current page.center) {%
+          \begin{minipage}{0.85\paperwidth}%
+            \centering
+            {\color{Cream}\fontsize{30pt}{36pt}\selectfont\bfseries #1\par}%
+            \vspace{0.6cm}%
+            {\color{Cream!70}\large #2\par}%
+          \end{minipage}%
+        };
+      \end{tikzpicture}%
+    \end{frame}%
+  }%
+}
+
+%==============================================================================
+% BLOCKS — alertblock and exampleblock
+%==============================================================================
+\setbeamercolor{block title alerted}{fg=Cream, bg=Alert}
+\setbeamercolor{block body alerted}{fg=InkBlack, bg=Alert!8}
+\setbeamercolor{block title example}{fg=Cream, bg=Success}
+\setbeamercolor{block body example}{fg=InkBlack, bg=Success!8}
+
+%==============================================================================
+% MARGINS
+%==============================================================================
+\setbeamersize{text margin left=0.8cm, text margin right=0.8cm}
+
+%==============================================================================
+% READABILITY DEFAULTS
+%==============================================================================
+\setlength{\parskip}{0.5em}
+
+\endinput
