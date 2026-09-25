@@ -16,7 +16,7 @@ Compared against upstream commit `9163a2e` (2026-08-26).
 | `skills/blindspot/` | `.claude/skills/blindspot/` | Unchanged |
 | `skills/referee2/` | `.claude/skills/referee2/` | Lightly modified |
 | `skills/tikz/` | `.claude/skills/tikz/` | Substantially modified |
-| `skills/beautiful_deck/` | `.claude/skills/beautiful_deck/` | Substantially modified: audience profiles, course-project mode and scaffold, voice-register check, reusable-figure conventions |
+| `skills/beautiful_deck/` | `.claude/skills/beautiful_deck/` | Substantially modified: audience profiles, voice-register check, plain conclusion slide instead of a one-sentence closer |
 | `references/rhetoric_of_decks/` | `presentations/rhetoric_of_decks*.md` | Unchanged |
 | `references/referee2_persona.md` | `personas/referee2.md` | Unchanged |
 | `references/latex_toolkit/tikz_rules.md` | `.claude/skills/compiledeck/tikz_rules.md` | Unchanged |
